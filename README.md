@@ -152,8 +152,6 @@ These enhancements can significantly improve the capabilities and user experienc
 
 ## Mermaid Flow Diagram for Image Classification Application
 
-Here's a basic outline of how you could structure your flow diagram using Mermaid syntax:
-
 ```mermaid
 graph TD;
     A[Start] --> B[User Interaction];
@@ -194,3 +192,84 @@ To visualize this diagram, you can copy the Mermaid syntax into a Mermaid live e
 
 If you're using draw.io or any other diagramming tool, you would manually create the diagram by following the steps outlined above. Each box represents a step in the process, and the arrows (`-->`) represent the flow from one step to the next.
 
+### Obtaining API Keys and Configuring the Project
+
+Before you can use this project, you'll need to obtain API keys from Unsplash and Pexels. These keys are necessary for fetching images from these platforms.
+
+1. **Unsplash API Key**:
+   - Visit the [Unsplash Developers](https://unsplash.com/developers) page and create a new application.
+   - After creating the application, you'll be provided with an Access Key. This is your Unsplash API Key.
+
+2. **Pexels API Key**:
+   - Go to the [Pexels API](https://www.pexels.com/api/) page and sign up for an API key.
+   - Once you have signed up and logged in, navigate to the "API" section to find your API Key.
+
+After obtaining the API keys, create a `json.config` file in the root directory of the project. The file should contain your API keys in the following format:
+
+```json
+{
+ "Unsplash": "YOUR_UNSPLASH_API_KEY",
+ "Pexels": "YOUR_PEXELS_API_KEY"
+}
+```
+
+Replace `"YOUR_UNSPLASH_API_KEY"` and `"YOUR_PEXELS_API_KEY"` with the actual keys you obtained.
+
+### Setting Up the Environment and Running the Project
+
+1. **Clone the Repository**:
+   ```
+   git clone https://github.com/yourusername/ImageClassification.git
+   ```
+
+2. **Create a Conda Environment**:
+   It's recommended to use a Conda environment to manage the project's dependencies. Create a new environment and activate it:
+   ```
+   conda create --name image_classification python=3.8
+   conda activate image_classification
+   ```
+
+3. **Install Required Packages**:
+   Navigate to the project directory and install the required packages using the `requirements.txt` file:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Streamlit Application**:
+   With the environment set up and the required packages installed, you can now run the Streamlit application:
+   ```
+   streamlit run src/main.py
+   ```
+
+### Required Packages and Versions
+
+Ensure you have the following packages installed in your environment. You can find the exact versions in the `requirements.txt` file.
+
+- streamlit
+- tensorflow
+- PIL (Python Imaging Library)
+- requests
+- pandas
+- python-dotenv
+
+### Sample `api.py` for API Key Configuration
+
+Here's a sample `api.py` file that demonstrates how to load API keys from a `json.config` file:
+
+```python
+import json
+
+def load_api_keys():
+    with open('json.config', 'r') as file:
+        config = json.load(file)
+    return config
+
+# Example usage
+config = load_api_keys()
+print(config['Unsplash'])
+print(config['Pexels'])
+```
+
+This file reads the API keys from the `json.config` file and prints them. You can modify this file to suit your project's needs, such as using the keys to authenticate API requests.
+
+---
