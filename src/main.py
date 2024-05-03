@@ -1,3 +1,12 @@
+''' TODO: Update/Fix needed for MVP. 
+TODO:Saving to Excel needs improving/formatting.
+TODO:Add run id counter to be able to track individual run per user sessions
+TODO:Local Time Stamp/Day/Session tagging vs Global Time Stamp/AllSessions tagging. Maybe use Unix timestamp
+TODO:UPdate Reset Button to prompt user "Remove all Images and Output? Yes/No"
+TODO:
+
+'''
+
 import streamlit as st
 from PIL import Image
 from io import BytesIO
