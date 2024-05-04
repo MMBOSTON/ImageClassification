@@ -134,3 +134,10 @@ def save_image_to_local(image, directory='local_images'):
     
     # Save the image
     image.save(image_path)
+
+def delete_uploaded_images(directory='local_images'):
+    """
+    Deletes all uploaded images from the specified directory.
+    """
+    for file in glob.glob(f"{directory}/*"):
+        os.remove(file)

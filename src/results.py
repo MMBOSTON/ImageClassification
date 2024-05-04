@@ -14,9 +14,8 @@ from image_processing import classify_images
 from file_operations import create_directory, output_dir
 import streamlit as st
 from datetime import datetime
-#from io import BytesIO
-import uuid
-import time
+#import uuid
+#import time
 
 def save_results_to_excel(df_new, image_file_name=None):
     """
@@ -125,21 +124,3 @@ def process_and_save_results(image, model_name, classification_data):
             message = "Classification_Results.xlsx is currently opened by the user. Please, close it for the program to write out the classification results."
             print(message)
             st.error(message)
-
-# def process_and_save_results(image, model_name, classification_data):
-#     # Classify the image
-#     results = classify_images(image, model_name)
-#     # Save the classification results to an Excel file in the output directory
-#     if results.empty:
-#         print(f"No results to save for {image}") # Debug print statement
-#     else:
-#         try:
-#             print(f"Saving results for {image} to Excel file") # Debug print statement
-#             # Get the image file name from the image file path
-#             image_file_name = str(uuid.uuid4())
-#             ###image_file_name = image.name
-#             save_results_to_excel(results, image_file_name)
-#         except PermissionError:
-#             message = "Classification_Results.xlsx is currently opened by the user. Please, close it for the program to write out the classification results."
-#             print(message)
-#             st.error(message)
