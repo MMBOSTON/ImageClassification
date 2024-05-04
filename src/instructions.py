@@ -1,4 +1,15 @@
+"""
+This module provides instructions for using the application.
+It contains a function that returns a markdown string with detailed instructions on how to use the application.
+"""
+
 def instructions():
+    """
+    Returns a markdown string containing instructions for using the application.
+
+    Returns:
+    - str: The markdown string with instructions.
+    """
     return """
     ### Instructions:
 
@@ -16,7 +27,4 @@ def instructions():
 
     --- 
     ### User Selected Images
-    """  # Add closing triple quote here
-
-def classification_data_title():
-    return "#### Classification Data"
+    """

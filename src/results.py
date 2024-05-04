@@ -1,16 +1,39 @@
+"""
+This module contains functions for processing and saving classification results to an Excel file.
+It provides functionality to save the results of image classification tasks performed by the application.
+The results are saved in an Excel file, with each row representing a classification result.
+The module also includes functionality to adjust the column widths in the Excel file for better visibility.
+# THIS IS NEW.
+"""
+
 import os
 import pandas as pd
 import openpyxl
 from openpyxl.utils import get_column_letter
 from image_processing import classify_images
-from PIL import Image
-from io import BytesIO
-import uuid
-
 from file_operations import create_directory, output_dir
 import streamlit as st
+from datetime import datetime
+#from io import BytesIO
+import uuid
+import time
 
 def save_results_to_excel(df_new, image_file_name=None):
+    """
+    Saves the classification results to an Excel file.
+
+    This function takes a DataFrame containing the classification results and an optional image file name.
+    It saves the results to an Excel file named 'Classification_Results.xlsx' in the output directory.
+    If the Excel file already exists, it appends the new results to the existing file.
+    It also adjusts the column widths in the Excel file for better visibility.
+
+    Parameters:
+    - df_new (pd.DataFrame): The DataFrame containing the new classification results.
+    - image_file_name (str, optional): The name of the image file. Defaults to None.
+
+    Raises:
+    - PermissionError: If the Excel file is currently opened by the user.
+    """
     try:
         # Ensure the output directory exists
         create_directory(output_dir)
@@ -49,7 +72,7 @@ def save_results_to_excel(df_new, image_file_name=None):
             for cell in column:
                 try:
                     if len(str(cell.value)) > max_length:
-                        max_length = len(cell.value)
+                        max_length = len(str(cell.value))
                 except:
                     pass
             adjusted_width = (max_length + 2)
@@ -59,22 +82,64 @@ def save_results_to_excel(df_new, image_file_name=None):
     except Exception as e:
         print(f"An error occurred while saving results to Excel file: {e}")
 
+
 def process_and_save_results(image, model_name, classification_data):
+    """
+    Processes and saves the classification results to an Excel file
+    This function classifies the given image using the specified model, processes the results,
+    and saves them to an Excel file. The filename for the Excel file is generated
+    using a timestamp, class ID, and class name
+    Parameters:
+        - image (PIL.Image): The image to be classified.
+        - model_name (str): The name of the model to use for classification.
+        - classification_data (pd.DataFrame): The DataFrame containing the classification data
+    Raises:
+        - PermissionError: If the Excel file is currently opened by the user.
+    """
     # Classify the image
     results = classify_images(image, model_name)
 
     # Save the classification results to an Excel file in the output directory
     if results.empty:
-        print(f"No results to save for {image}") # Debug print statement
+        print(f"No results to save for {image}")  # Debug print statement
     else:
         try:
-            print(f"Saving results for {image} to Excel file") # Debug print statement
-            # Get the image file name from the image file path
-            image_file_name = str(uuid.uuid4())
-            ###image_file_name = image.name
+            print(f"Saving results for {image} to Excel file")  # Debug print statement
+            # Generate a timestamp for the current date and time
+            datetime_stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+            # Assuming class_id and class_name are available from classification_data
+            # For demonstration, let's assume we extract them from the first row of classification_data
+            class_id = classification_data.iloc[0]['Class ID']
+            class_name = classification_data.iloc[0]['Class Name']
+            ext = "xlsx"  # Assuming the extension is xlsx for Excel file
+
+            # Create the filename template
+            filename_template = f"{datetime_stamp}_{class_id}_{class_name}.{ext}"
+
+            # Use the filename template to create the image file name
+            image_file_name = filename_template
 
             save_results_to_excel(results, image_file_name)
         except PermissionError:
             message = "Classification_Results.xlsx is currently opened by the user. Please, close it for the program to write out the classification results."
             print(message)
             st.error(message)
+
+# def process_and_save_results(image, model_name, classification_data):
+#     # Classify the image
+#     results = classify_images(image, model_name)
+#     # Save the classification results to an Excel file in the output directory
+#     if results.empty:
+#         print(f"No results to save for {image}") # Debug print statement
+#     else:
+#         try:
+#             print(f"Saving results for {image} to Excel file") # Debug print statement
+#             # Get the image file name from the image file path
+#             image_file_name = str(uuid.uuid4())
+#             ###image_file_name = image.name
+#             save_results_to_excel(results, image_file_name)
+#         except PermissionError:
+#             message = "Classification_Results.xlsx is currently opened by the user. Please, close it for the program to write out the classification results."
+#             print(message)
+#             st.error(message)
