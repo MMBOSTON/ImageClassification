@@ -147,9 +147,9 @@ This detailed overview, combined with the code snippets and the project's archit
 
 - **Community Features**: Implement features that allow users to share their models, datasets, and classification results with the community. This could include a forum, a gallery of shared models, and the ability to vote or comment on shared content.
 
-These enhancements can significantly improve the capabilities and user experience of the image classification application, making it a more powerful and versatile tool for image classification tasks.
+    These enhancements can significantly improve the capabilities and user experience of the image classification application, making it a more powerful and versatile tool for image classification tasks.
 
-Based on the review of the provided Python files and the overall flow of the image classification application, here are some minor enhancements that could improve the application's functionality and user experience:
+    Based on the review of the provided Python files and the overall flow of the image classification application, here are some minor enhancements that could improve the application's functionality and user experience:
 
 ### 11. Improve Error Handling and User Feedback
 - **Enhancement**: Implement more robust error handling throughout the application. This includes handling exceptions gracefully and providing clear feedback to the user when something goes wrong. For example, if an image fails to classify, the application could display a user-friendly message explaining the issue and suggesting possible actions.
